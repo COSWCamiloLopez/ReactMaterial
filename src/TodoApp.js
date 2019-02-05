@@ -2,8 +2,11 @@ import React from 'react';
 import moment from "moment";
 import {TodoList} from "./TodoList";
 import {Login} from "./component/Login";
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
+import {FormControl, Typography} from "@material-ui/core";
 
 export class TodoApp extends React.Component {
     constructor(props) {
@@ -19,48 +22,60 @@ export class TodoApp extends React.Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit} className="todo-form">
-                    <h3>New TODO</h3>
-                    <label htmlFor="text" className="right-margin">
-                        Text:
-                    </label>
-
-                    <input
-                        id="text"
-                        onChange={this.handleTextChange}
-                        value={this.state.text}>
-                    </input>
+                    <Typography variant="headline"> New TODO </Typography>
 
                     <br/>
-                    <br/>
-                    <label htmlFor="priority" className="right-margin">
-                        Priority:
-                    </label>
-
-                    <input
-                        id="priority"
-                        type="number"
-                        onChange={this.handlePriorityChange}
-                        value={this.state.priority}>
-                    </input>
+                    <FormControl margin="normal" fullWidth>
+                        <Input
+                            placeholder="Text"
+                            id="text"
+                            onChange={this.handleTextChange}
+                            value={this.state.text}>
+                        </Input>
+                    </FormControl>
 
                     <br/>
                     <br/>
 
-                    <DatePicker
-                        id="due-date"
-                        selected={this.state.dueDate}
-                        placeholderText="Due date"
-                        onChange={this.handleDateChange}>
-                    </DatePicker>
+                    <FormControl margin="normal" fullWidth>
+                        <Input
+                            placeholder="Priority"
+                            id="priority"
+                            type="number"
+                            onChange={this.handlePriorityChange}
+                            value={this.state.priority}>
+                        </Input>
+                    </FormControl>
 
                     <br/>
+                    <br/>
 
-                    <button>
+                    <FormControl margin="normal" fullWidth>
+                        <TextField
+                            type="date"
+                            id="due-date"
+                            selected={this.state.dueDate}
+                            placeholderText="Due date"
+                            onChange={this.handleDateChange}>
+                        </TextField>
+                    </FormControl>
+
+                    <br/>
+                    <br/>
+
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        fullWidth
+                    >
                         Add #{this.state.items.length + 1}
-                    </button>
+                    </Button>
                 </form>
+
+                <br/>
+                <br/>
+
                 <TodoList todoList={this.state.items}/>
-                <Login/>
             </div>
         );
     }
