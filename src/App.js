@@ -9,13 +9,11 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {isLoggedIn: false}
-        this.handleStateChange = this.handleStateChange.bind(this);
+        this.state = {isLoggedIn: localStorage.getItem("isLoggedIn")}
+        this.handleIsLoggedChange = this.handleIsLoggedChange.bind(this);
     }
 
     render() {
-
-        let toRender;
 
         const LoginView = () => (
             <Login/>
@@ -24,13 +22,6 @@ class App extends Component {
         const TodoView = () => (
             <TodoApp/>
         );
-
-        if (this.state.isLoggedIn === false) {
-            toRender = LoginView;
-        } else {
-            toRender = TodoView;
-        }
-
 
         return (
             <Router>
@@ -44,15 +35,19 @@ class App extends Component {
                     <br/>
 
                     <ul>
-                        <li><Link to="/">Login</Link></li>
-                        <li><Link to="/todo">Todo</Link></li>
+                        <li><Link
+                            to="/"
+                        >Login</Link></li>
+                        <li><Link
+                            to="/todo"
+                        >Todo</Link></li>
                     </ul>
 
                     <div>
                         <Route
                             exact
-                            path={this.state.isLoggedIn ? '/todo' : '/'}
-                            component={toRender}
+                            path={this.state.isLoggedIn === "true" ? '/todo' : '/'}
+                            component={this.state.isLoggedIn === "true" ? TodoView : LoginView}
                         />
                     </div>
                 </div>
@@ -60,18 +55,11 @@ class App extends Component {
         );
     }
 
-    handleStateChange(e) {
-        if (this.state.isLoggedIn === true) {
-            this.setState({
-                isLoggedIn: false
-            });
-        } else {
-            this.setState({
-                isLoggedIn: true
-            });
-        }
+    handleIsLoggedChange(){
+        this.setState({
+           isLoggedIn: localStorage.getItem("isLoggedIn")
+        });
     }
-
 }
 
 export default App;

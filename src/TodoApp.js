@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from "moment";
 import {TodoList} from "./TodoList";
-import {Login} from "./component/Login";
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -21,7 +20,7 @@ export class TodoApp extends React.Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit} className="todo-form">
+                <form className="todo-form">
                     <Typography variant="headline"> New TODO </Typography>
 
                     <br/>
@@ -67,6 +66,7 @@ export class TodoApp extends React.Component {
                         color="primary"
                         variant="contained"
                         fullWidth
+                        onClick={this.handleSubmit}
                     >
                         Add #{this.state.items.length + 1}
                     </Button>
